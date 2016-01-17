@@ -1,0 +1,15 @@
+{
+  "name": "first-full-stack",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "watch:client": "../../node_modules/.bin/watch 'tasks/concat.js' client",
+    "watch:server": "../../node_modules/.bin/nodemon -w app app/server",
+    "start": "../../node_modules/.bin/concurrent 'npm run watch:server' 'npm run watch:client'"
+  },
+  "author": "",
+  "license": "ISC"
+}

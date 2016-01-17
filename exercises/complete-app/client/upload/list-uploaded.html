@@ -1,0 +1,26 @@
+<h2>Your uploads</h2>
+
+<a ng-if="ctrl.uploads | hasLoadedItems"
+   href="/create/new"
+   >
+   Upload something now
+</a>
+
+<ul>
+  <li ng-repeat="item in ctrl.uploads track by item._id"
+      class="upload-thumb"
+  >
+    <img ng-src="/c/show/{{ :: item._id }}">
+    <a href="/c/{{ :: item.id }}" target="_self">
+      {{ item.title }}
+    </a>
+  </li>
+
+  <li ng-if="ctrl.uploads | loadedAndEmpty">
+    <p>Looking quite empty</p>
+    <img src="/img/empty.gif">
+    <p>
+      <a href="/create/new">Upload something now</a>
+    </p>
+  </li>
+</ul>

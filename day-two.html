@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Fullstack JS</title>
+  
+  <link rel="stylesheet" href="reveal/css/reveal.min.css">
+  <link rel="stylesheet" href="reveal/lib/css/googlecode.css">
+
+  <link rel="stylesheet" href="slides-theme/style.css">
+  <link rel="stylesheet" href="slides-theme/talk-specific.css">
+
+  <!-- demos -->
+
+  <!-- for live coding -->
+  <link rel="stylesheet" href="js/little-console.css" id="theme">
+
+  <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-24335480-1']);
+  _gaq.push(['_trackPageview']);
+
+  var asyncScript = function(src) {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = src;
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  };
+
+  asyncScript(('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js');
+  </script>
+
+  <script src="js/revealHooks.js"></script>
+
+</head>
+
+<body>
+
+  <div class="reveal">
+    <div class="slides">
+<section data-state='sub' class=" sub"><h2 id="back-v-front-end">Back v front-end</h2>
+</section>
+
+<section  class=""><h2 id="client-v-server">Client v server</h2>
+<ul>
+<li>Backend: everything on our computers</li>
+<li>Frontend: everything on the user&#39;s computer</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="trust">Trust</h2>
+<ul>
+<li>Backend: trusted environment</li>
+<li>Frontend: untrusted. Users can see <em>everything</em></li>
+<li>What must backend be wary of?</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="fear-gifts-from-the-frontend">Fear gifts from the frontend</h2>
+<ul>
+<li><em>Never</em> trust user input</li>
+<li>Validate, restrict, rate-limit, monitor</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="persistence">Persistence</h2>
+<ul>
+<li>Users want same data on mobile, laptop, etc</li>
+<li>Therefore we must persist data somewhere all can access</li>
+<li>Backend required for persistence</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="store-retrieve">Store, retrieve</h2>
+<ul>
+<li>Large amounts of backend work is saving and retrieving data</li>
+<li>Easy with a little; hard with lots</li>
+<li>Easy with few users and simple apps; hard with many, complex, real-time apps</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="databases">Databases</h2>
+<ul>
+<li>Can shoulder a lot of the challenge of persistence for you</li>
+<li>Larger sites sometimes use simpler databases that do less, but support larger write-loads</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="what-are-databases-">What are databases?</h2>
+<ul>
+<li>Usually separate programs, running away from application server</li>
+<li>Usually save data to disk to persist it - in memory database are appearing to increase speed</li>
+<li>A range are avaiable - choosing one that fits your app is important</li>
+</ul>
+</section>
+
+<section data-state='title' class=" title"><h2 id="stacks">Stacks</h2>
+</section>
+
+<section  class=""><h2 id="what-are-stacks-">What are stacks?</h2>
+<ul>
+<li>The set of technology used in an app</li>
+<li>Can compare by seeing which tools you use to solve a problem</li>
+<li>e.g app A uses Postgres for persistence, app B uses MongoDB</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="mean-stack">MEAN stack</h2>
+<ul>
+<li>MEAN = Mean, Express, Angular, Node</li>
+<li>SPA + backend logic + database</li>
+</ul>
+</section>
+
+<section data-state='title' class=" title"><h2 id="mongo">Mongo</h2>
+<ul>
+<li>Document database</li>
+<li>Stores key-value objects</li>
+<li>Queried with key-value objects</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="documents">Documents</h2>
+<ul>
+<li>Structure application around &#39;documents&#39;, organised into collections</li>
+<li>e.g YouTube video, a blog post</li>
+<li>Keep all related data attached to those documents</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="example-document">Example document</h2>
+<pre><code class="lang-javascript">{
+  title: &quot;Why I like cheese&quot;,
+  text: &quot;Cheese is stale milk, ...&quot;,
+  author: {
+    name: &quot;Tim&quot;,
+    profileUrl: &quot;...&quot;,
+  },
+  comments: [
+    {
+      text: &quot;Cheese is HORRIBLE. WTF OMG LOL viagra...&quot;,
+      authorName: &quot;Bob&quot;,
+    },
+  ],
+}
+</code></pre>
+</section>
+
+<section  class=""><h2 id="denormalisation">Denormalisation</h2>
+<ul>
+<li>Keeping all related data together makes retrieving it fast</li>
+<li>But what is <em>normalisation</em>?</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="normalisation">Normalisation</h2>
+<ul>
+<li>Splitting data out to de-duplicate it</li>
+<li>Makes updating easier</li>
+<li>For instance, if a blog author&#39;s name change, we have to update their name embedded in every post</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="let-s-give-it-a-go">Let&#39;s give it a go</h2>
+</section>
+
+<section  class=""><h2 id="why-mongo-">Why Mongo?</h2>
+<ul>
+<li>Easy to setup and use</li>
+<li>Datastructures - nested keys and values, arrays etc</li>
+<li>Good at running at medium levels of distribution (multiple servers)</li>
+<li>Good for prototyping</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="when-choose-something-else-">When choose something else?</h2>
+<ul>
+<li>Important data: choose an ACID datastore (even Google does this), e.g Postgres</li>
+<li>Serious scale: Cassandra etc</li>
+<li>Complex search: ElasticSearch, Lucene</li>
+<li>Extreme speed: Redis</li>
+</ul>
+</section>
+
+<section data-state='sub' class=" sub"><h2 id="examples">Examples</h2>
+</section>
+
+<section  class=""><h2 id="saving">Saving</h2>
+<ul>
+<li><code>insert(document)</code></li>
+</ul>
+<pre><code class="lang-javascript">movies.insert({
+  title: &quot;funny cat&quot;,
+  comments: [],
+  author: {
+    name: &quot;Grace D. Hopper&quot;,
+  },
+});
+</code></pre>
+</section>
+
+<section  class=""><h2 id="retrieving">Retrieving</h2>
+<ul>
+<li>Simplest - matching property by property between documents and </li>
+<li><code>find(query)</code></li>
+</ul>
+<pre><code class="lang-javascript">movies.find({
+  title: &quot;funny cat&quot;,
+});
+</code></pre>
+</section>
+
+<section  class=""><h2 id="updating">Updating</h2>
+<ul>
+<li>Find records to update</li>
+<li><code>update(query, update)</code></li>
+</ul>
+<pre><code class="lang-javascript">movies.update({ _id: someId }, {
+  title: &quot;Funny Cat&quot;,
+})
+</code></pre>
+</section>
+
+<section  class=""><h2 id="removing">Removing</h2>
+<ul>
+<li>Find records to remove</li>
+<li><code>remove(query)</code></li>
+</ul>
+<pre><code class="lang-javascript">movies.remove({ _id: someId });
+</code></pre>
+</section>
+
+</div>
+</div>
+
+<!-- demo code -->
+<script src="js/jquery.js"></script>
+<script src="js/lodash.js"></script>
+<script src="js/angular.js"></script>
+
+<!-- live coding -->
+<script src=js/little-console.js></script>
+<script src=js/showConsoles.js></script>
+
+<!-- reveal -->
+<script src="reveal/lib/js/head.min.js"></script>
+<script src="reveal/plugin/highlight/highlight.js"></script>
+<script src="reveal/js/reveal.js"></script>
+<script src="js/revealConfig.js"></script>
+
+</body>

@@ -1,0 +1,35 @@
+{
+  "name": "first-full-stack",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app/server.js",
+  "scripts": {
+    "slides": "tools/build-template.sh slides < day-one.template.md > day-one.html && tools/build-template.sh slides < day-two.template.md > day-two.html",
+    "slides:dev": "node_modules/.bin/watch 'npm run slides' slides"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "MD5": "^1.3.0",
+    "angular": "^1.4.8",
+    "angular-resource": "^1.4.8",
+    "angular-route": "^1.4.8",
+    "concat-with-sourcemaps": "^1.0.4",
+    "concurrently": "^1.0.0",
+    "easy-stdin": "^1.0.1",
+    "express": "^4.13.3",
+    "heredoc": "^1.2.0",
+    "jade": "^1.11.0",
+    "lodash": "^4.0.0",
+    "marked": "^0.3.2",
+    "mongodb": "^1.4.40",
+    "monk": "^1.0.1",
+    "multiparty": "^4.1.2",
+    "ng-file-upload": "^11.1.1",
+    "node-uuid": "^1.4.7",
+    "nodemon": "^1.8.1",
+    "serve-static": "^1.10.1",
+    "shelljs": "^0.3.0",
+    "watch": "^0.17.1"
+  }
+}

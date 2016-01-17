@@ -1,0 +1,8 @@
+extends default
+
+block title
+  | #{ content.title }
+
+block body
+  h1 #{ content.title }
+  img(src="/c/show/" + content._id)

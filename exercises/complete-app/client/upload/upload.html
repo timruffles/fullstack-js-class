@@ -1,0 +1,20 @@
+<div>
+  <h2>Upload GIF</h2>
+
+  <form name='uploadForm'
+    ng-submit="ctrl.submit()"
+    >
+    <input type=file
+           ngf-select
+           ng-model="ctrl.upload.content"
+           name="content"
+           required
+           >
+
+    <button type=submit
+      ng-disabled="ctrl.upload.$pending || uploadForm.$invalid"
+      >
+      Upload
+    </button>
+  </form>
+</div>

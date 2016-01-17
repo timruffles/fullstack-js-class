@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Fullstack JS</title>
+  
+  <link rel="stylesheet" href="reveal/css/reveal.min.css">
+  <link rel="stylesheet" href="reveal/lib/css/googlecode.css">
+
+  <link rel="stylesheet" href="slides-theme/style.css">
+  <link rel="stylesheet" href="slides-theme/talk-specific.css">
+
+  <!-- demos -->
+
+  <!-- for live coding -->
+  <link rel="stylesheet" href="js/little-console.css" id="theme">
+
+  <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-24335480-1']);
+  _gaq.push(['_trackPageview']);
+
+  var asyncScript = function(src) {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = src;
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  };
+
+  asyncScript(('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js');
+  </script>
+
+  <script src="js/revealHooks.js"></script>
+
+</head>
+
+<body>
+
+  <div class="reveal">
+    <div class="slides">
+<section  class="front"><h2 id="full-stack-javascript">Full-stack Javascript</h2>
+<p><a href="http://twitter.com/timruffles">@timruffles</a>
+<a href="http://twitter.com/sidekicksrc">@sidekicksrc</a></p>
+</section>
+
+<section  class=""><h2 id="the-goal">The goal</h2>
+<blockquote>
+<p>Enabling you to build full-stack apps with Javascript</p>
+</blockquote>
+</section>
+
+<section  class=""><h2 id="structure">Structure</h2>
+<ul>
+<li>Day one: frontend<ul>
+<li>Full stack overview</li>
+<li>Javascript-powered rich UIs</li>
+<li>AngularJS</li>
+</ul>
+</li>
+<li>Day two: backend<ul>
+<li>Node</li>
+<li>MEAN</li>
+<li>Building a full-stack application together</li>
+</ul>
+</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="installing-etc">Installing etc</h2>
+<ul>
+<li>install <a href="http://nodejs.org/download">node</a></li>
+<li>(Windows only) install git-bash</li>
+<li>clone/download <a href="https://github.com/timruffles/full-stack-js-class">github.com/timruffles/full-stack-js-class</a></li>
+<li>navigate to the place you cloned, and <code>npm install</code></li>
+</ul>
+</section>
+
+<section data-state='title' class=" title"><h2 id="full-stack">Full stack</h2>
+</section>
+
+<section  class=""><h2 id="aka-back-and-front-end-">AKA &#39;back- and front-end&#39;</h2>
+</section>
+
+<section  class=""><h2 id="theory-first">Theory first</h2>
+</section>
+
+<section data-state='bad' class=" bad"><h2 id="nah">Nah</h2>
+<blockquote>
+<p>An ounce of practice is generally worth more than a ton of theory.</p>
+</blockquote>
+</section>
+
+<section  class=""><h2 id="exercise">Exercise</h2>
+<pre><code>exercises/first-full-stack
+
+npm start
+</code></pre><ul>
+<li>Open network - no response</li>
+<li>Look at TODOs in app/server.js</li>
+<li>Look at TODOs in public/app.js</li>
+</ul>
+</section>
+
+<section data-state='title' class=" title"><h2 id="saga-of-web-page">Saga of web-page</h2>
+</section>
+
+<section  class=""><h2 id="url-bar">URL bar</h2>
+</section>
+
+<section  class=""><h2 id="dns">DNS</h2>
+<ul>
+<li>Which computer (server) am I trying to talk to?</li>
+<li>Domain name to IP address</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="ip">IP</h2>
+<ul>
+<li>IP = internet protocol</li>
+<li>TCP = transmission control protocol</li>
+<li>TCP makes IP reliable</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="we-ve-got-the-ip">We&#39;ve got the IP</h2>
+<pre><code># play along at home with curl -v google.com
+About to connect() to app.com/funny/122 port 80 (#0)
+ Trying 62.253.72.148...
+Connected to google.com (62.253.72.148) port 80 (#0)
+
+HEAD /funny/122 HTTP/1.1
+User-Agent: curl/7.30.0
+Host: app.com
+Accept: <em>/</em>
+</code></pre></section>
+
+<section  class=""><h2 id="https-">HTTPS?</h2>
+<ul>
+<li>transport layer - outside world only sees IP addresses etc</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="http-arrives">HTTP arrives</h2>
+<ul>
+<li>if HTTPS, after decryption</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="application-server">Application server</h2>
+<ul>
+<li>server: as it sounds, provides nice things like GIFs</li>
+<li>just a computer</li>
+<li>reads (&#39;parses&#39;) the HTTP request</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="reading-http">Reading HTTP</h2>
+<ul>
+<li>HTTP 1.x is plain text!</li>
+<li>we use path, domain and query string to interpret what we need to serve up</li>
+</ul>
+<pre><code>HEAD / HTTP/1.1
+User-Agent: curl/7.30.0
+Host: google.com
+Accept: <em>/</em>
+</code></pre></section>
+
+<section  class=""><h2 id="response">Response</h2>
+<ul>
+<li>Application decides - do I have anything to reply with?</li>
+<li>If so, send back whatever is asked for</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="html-page">HTML page</h2>
+<ul>
+<li>First request/response likely HTML</li>
+</ul>
+<pre><code class="lang-html">&lt;!doctype html&gt;
+&lt;link href=&quot;style.css&quot; rel=&quot;stylesheet&quot;&gt;
+&lt;img hover-to-play-gif src=&quot;content/funny/122.jpg&quot;&gt;
+&lt;script src=&quot;app.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+</section>
+
+<section  class=""><h2 id="client-browser-">Client (browser)</h2>
+<ul>
+<li>Parses HTML, turns into DOM tree</li>
+<li>Requests all blocking stylesheets and scripts</li>
+<li>Requests images and other non-embedded content (videos, audio etc)</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="rendering">Rendering</h2>
+<ul>
+<li>With HTML + CSS, renders DOM tree to screen</li>
+<li>Invokes blocking Javascript at each point it&#39;s found in tree</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="javascript">Javascript</h2>
+<ul>
+<li>Still only virtual machine in browsers</li>
+<li>Makes single web pages an interactive application platform</li>
+<li>Without JS, behaviour has to be via links and new HTTP requests</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="ajax">AJAX</h2>
+<ul>
+<li>Continues communicate with server while staying on same HTML page</li>
+<li>Makes web pages into &#39;thick clients&#39;</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="server">Server</h2>
+<ul>
+<li>&#39;Your&#39; computers</li>
+<li>Storage, trust, collaboration</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="storage">Storage</h2>
+<ul>
+<li>Computer stays online</li>
+<li>Data stays around</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="trust">Trust</h2>
+</section>
+
+<section data-state='notitle' class=" notitle"><h2 id="-"> </h2>
+<p><img src="media/server-v-client.png"></p>
+</section>
+
+<section  class=""><h2 id="saga">Saga</h2>
+<ul>
+<li>DNS = which computer</li>
+<li>TCP/IP = transport</li>
+<li>HTTP = what do you want?</li>
+<li>HTML + CSS = pretty pictures</li>
+<li>JS + AJAX = keeps the party going</li>
+<li>Server: trust, persistence, collaboration</li>
+</ul>
+</section>
+
+<section data-state='title' class=" title"><h2 id="front-to-back">Front to back</h2>
+<ul>
+<li>Learn solid &#39;core&#39; JS along the way</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="front-end">Front-end</h2>
+<ul>
+<li>HTML/CSS/JS served by server</li>
+<li>JS + JSON, with JS templating</li>
+<li>OR both!</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="you-know-html-css">You know HTML/CSS</h2>
+</section>
+
+<section  class=""><h2 id="js-is-where-it-gets-tricky">JS is where it gets tricky</h2>
+</section>
+
+<section  class=""><h2 id="gui-development">GUI development</h2>
+</section>
+
+<section  class=""><h2 id="tough">Tough</h2>
+</section>
+
+<section  class=""><h2 id="so-mostly-use-frameworks">So mostly use frameworks</h2>
+</section>
+
+<section data-state='bad' class=" bad"><h2 id="but-first-">But first!</h2>
+</section>
+
+<section data-state='title' class=" title"><h2 id="radical-javascript">Radical Javascript</h2>
+</section>
+
+<section  class=""><h2 id="rad-i-cal">Rad · i · cal</h2>
+<blockquote>
+<p>relating to the fundamental nature of something</p>
+</blockquote>
+</section>
+
+<section  class=""><h2 id="our-tools">Our tools</h2>
+<ul>
+<li>developer tools</li>
+</ul>
+<pre><code class="lang-javascript">console.log(&quot;hello&quot;);
+</code></pre>
+</section>
+
+<section  class=""><h2 id="variables">Variables</h2>
+<pre><code class="lang-javascript">var x = &quot;howdy&quot;;
+var iAmUndefined; // please note: JS is camelCase
+</code></pre>
+</section>
+
+<section data-state='title' class=" title"><h2 id="functions">Functions</h2>
+<p><img src="slides-theme/img/eval-apply.jpg" style='width:476px; display:block; margin: 0 auto'></p>
+</section>
+
+<section  class=""><h2 id="the-root">The root</h2>
+<video width="475" height="352" controls>
+  <source src="slides-theme/movies/spirit-of-the-computer.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>
+</video>
+
+</section>
+
+<section  class=""><h2 id="a-function">A function</h2>
+</section>
+
+<section  class=""><h2 id="why-so-important-">Why so important?</h2>
+</section>
+
+<section  class=""><h2 id="-"> </h2>
+<blockquote>
+<p>Establishing new languages is a powerful strategy for controlling complexity in engineering design</p>
+</blockquote>
+</section>
+
+<section  class=""><h2 id="two-ways-of-defining">Two ways of defining</h2>
+<pre><code class="lang-javascript">function add(a, b) {
+  return a + b;
+}
+
+var fn = function() {};
+</code></pre>
+</section>
+
+<section  class=""><h2 id="hoisting-great">Hoisting = great</h2>
+<pre><code class="lang-javascript">
+main(document.querySelector(&quot;#something&quot;));
+
+function main(el) {
+  var val = otherThing(el);
+}
+
+function otherThing() {
+  someHelper();
+
+  // other details...
+}
+
+// more boring helpers...
+</code></pre>
+</section>
+
+<section  class=""><h2 id="first-class">First-class</h2>
+<p>First class: use wherever you can use other values</p>
+</section>
+
+<section  class=""><h2 id="callbacks">Callbacks</h2>
+<pre><code class="lang-javascript">setTimeout(callMeLater, 250, &quot;from the past&quot;);
+
+function greet(whereFrom) {
+  console.log(&quot;greetings %s!&quot;, whereFrom);
+}
+</code></pre>
+</section>
+
+<section  class=""><h2 id="closures">Closures</h2>
+<p>// functions are closures!</p>
+</section>
+
+<section  class=""><h2 id="-"> </h2>
+<p><img src="/media/closures annotated.png"></p>
+</section>
+
+<section data-state='notitle' class=" notitle"><h2 id="context">Context</h2>
+<p>We can see variables in functions that wrap us (red)</p>
+<p><img src="/media/closures annotated.png"></p>
+</section>
+
+<section data-state='notitle' class=" notitle"><h2 id="privacy">Privacy</h2>
+<p>We can&#39;t see variables from inner functions (blue)</p>
+<p><img src="/media/closures annotated.png"></p>
+</section>
+
+<section  class=""><h2 id="-var-scope"><code>var</code> scope</h2>
+<p><code>var</code> is scoped to closest enclosing function: that is the only rule.</p>
+<p>Same with function definitions.</p>
+</section>
+
+<section  class=""><h2 id="coding-interview-spoiler">Coding interview spoiler</h2>
+<pre><code class="lang-javascript">var elements = document.querySelectorAll(&quot;button&quot;);
+
+// What is wrong here?
+for(var i = 0; i &lt; elements.length; i++) {
+  var element = elements[i];
+  element.addEventListener(&quot;click&quot;, function() {
+    console.log(element.innerHTML);
+  });
+}
+</code></pre>
+</section>
+
+<section  class=""><h2 id="guru-notes">Guru notes</h2>
+<pre><code class="lang-javascript">// you can return functions from functions!
+var adder = createAdder();
+adder(10); // 10
+adder(5); // 15
+
+function createAdder() {
+  var n = 0;
+  return function(m) {
+    return n += m;
+  }
+}
+</code></pre>
+</section>
+
+<section  class=""><h2 id="comparison">Comparison</h2>
+</section>
+
+<section  class=""><h2 id="yes-has-issues">Yes <code>==</code> has issues</h2>
+<p>So just use <code>===</code></p>
+</section>
+
+<section  class=""><h2 id="the-one-time-to-use-">The <em>ONE</em> time to use <code>==</code></h2>
+</section>
+
+<section  class=""><h2 id="js-loves-nothing">JS loves nothing</h2>
+<pre><code class="lang-javascript">var a = null;
+var b;
+
+// two types of nothing!
+</code></pre>
+</section>
+
+<section data-state='title' class=" title"><h2 id="data-structures">Data-structures</h2>
+<p><img src="slides-theme/img/algorithms-datastructures.jpg"
+     style='width:322px; display:block; margin: 0 auto'></p>
+</section>
+
+<section  class=""><h2 id="two-types">Two types</h2>
+</section>
+
+<section  class=""><h2 id="ordered">Ordered</h2>
+<ul>
+<li><code>Array</code></li>
+</ul>
+</section>
+
+<section  class=""><h2 id="array">Array</h2>
+</section>
+
+<section  class=""><h2 id="key-value">Key-value</h2>
+</section>
+
+<section  class=""><h2 id="objects-used-as-dictionaries">Objects, used as dictionaries</h2>
+<pre><code class="lang-javascript">var enToFr = {};
+
+enToFr.hello = &quot;bonjour&quot;;
+
+console.log(enToFr[&quot;hello&quot;]);
+</code></pre>
+</section>
+
+<section data-state='title' class=" title"><h2 id="statements">Statements</h2>
+</section>
+
+<section  class=""><h2 id="-if-"><code>if</code></h2>
+<pre><code class="lang-javascript">var surprised = false;
+
+if(surprised) {
+  console.log(&quot;You are problably new to coding&quot;);
+} else {
+  console.log(&quot;Yay! If works as expected&quot;);
+}
+</code></pre>
+</section>
+
+<section  class=""><h2 id="-for-"><code>for</code></h2>
+<pre><code class="lang-javascript">
+for(var i = 0; i &lt; 10; i++) {
+  console.log(i);
+}
+
+for(var el = document.querySelector(&quot;#deep&quot;);
+    el.parentElement;
+    el = el.parentElement) {
+}
+
+// quiz: what is el going to be?
+</code></pre>
+</section>
+
+<section data-state='title' class=" title"><h2 id="objects">Objects</h2>
+</section>
+
+<section  class=""><h2 id="alan-kay">Alan Kay</h2>
+<blockquote>
+<p>I thought of objects being like biological cells or computers on a network, only able to communicate with messages</p>
+</blockquote>
+</section>
+
+<section  class=""><h2 id="in-other-words">In other words</h2>
+<p>Little units of code + data, that communicate to solve problem</p>
+</section>
+
+<section  class=""><h2 id="bullet-proof-objects-in-js">Bullet-proof objects in JS</h2>
+</section>
+
+<section  class=""><h2 id="-"> </h2>
+<pre><code class="lang-javascript">var account = BankAccount(50);
+account.deposit(5);
+account.balance() // 5;
+
+function BankAccount(balance) {
+  var self = {};
+
+  self.deposit = function(n) {
+    if(balance + n &lt; 0) {
+      throw new Error(&quot;you don&#39;t have an overdraft!&quot;);
+    }
+    balance += n;
+  }
+
+  self.balance = function() {
+    return balance;
+  }
+
+  return self;
+}
+</code></pre>
+</section>
+
+<section  class=""><h2 id="one-way">One way</h2>
+<p>Many ways to do objects in JS.</p>
+</section>
+
+<section data-state='title' class=" title"><h2 id="frameworks">Frameworks</h2>
+</section>
+
+<section  class=""><h2 id="why-">Why?</h2>
+<ul>
+<li>Eliminiate common tasks</li>
+<li>Consistency - great for teams</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="common-features">Common features</h2>
+<ul>
+<li>Validation</li>
+<li>Persistence</li>
+<li>Rendering</li>
+<li>Sychronising data with display</li>
+<li>Structure</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="landscape">Landscape</h2>
+<ul>
+<li>complete: Ember, Angular</li>
+<li>minimal: Backbone</li>
+<li>libraries (build you own framework with these): React</li>
+</ul>
+</section>
+
+</div>
+</div>
+
+<!-- demo code -->
+<script src="js/jquery.js"></script>
+<script src="js/lodash.js"></script>
+<script src="js/angular.js"></script>
+
+<!-- live coding -->
+<script src=js/little-console.js></script>
+<script src=js/showConsoles.js></script>
+
+<!-- reveal -->
+<script src="reveal/lib/js/head.min.js"></script>
+<script src="reveal/plugin/highlight/highlight.js"></script>
+<script src="reveal/js/reveal.js"></script>
+<script src="js/revealConfig.js"></script>
+
+</body>
