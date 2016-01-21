@@ -60,11 +60,23 @@ db.users = [
 ## Normalisation
 
 - Splitting data out to de-duplicate it
+
+## Diagram
+{notitle: 1}
+
+<img src="media/norm-and-de.png">
+
+## Why?
+
+## Advantage
+
 - Makes updating easier
 - For instance, if a blog author's name change, we have to update their name embedded in every post
 
-## Let's give it a go
+## e.g
+{notitle:1}
 
+<img src="media/norm-vs.png">
 
 ## Why Mongo?
 

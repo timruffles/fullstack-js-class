@@ -8,6 +8,10 @@
 - Can compare by seeing which tools you use to solve a problem
 - e.g app A uses Postgres for persistence, app B uses MongoDB
 
+## MEAN 
+
+<img src="media/mean.png">
+
 ## MEAN stack
 
 - MEAN = Mean, Express, Angular, Node
