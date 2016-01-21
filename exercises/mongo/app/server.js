@@ -25,26 +25,15 @@ var count = 0;
 var qs = db.get("questions");
 
 app.get("/api/question", function(req, res, next) {
-  qs.find({})
-    .then(function(x) {
-      res.send(x) 
-    }, next)
+  // TODO handle retreiving
 });
 
 app.post("/api/question", function(req, res, next) {
-  qs.insert(req.body)
-    .then(function(x) {
-      res.send(x)
-    }, next)
+  // TODO handle creation
 });
 
 app.delete("/api/question/:id", function(req, res, next) {
-  qs.remove({
-    _id: req.params.id
-  })
-  .then(function(x) {
-    res.status(200).end();
-  }, next)
+  // TODO handle delete
 });
 
 
