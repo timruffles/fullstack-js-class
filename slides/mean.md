@@ -9,6 +9,7 @@
 - e.g app A uses Postgres for persistence, app B uses MongoDB
 
 ## MEAN 
+{notitle: 1}
 
 <img src="media/mean.png">
 
