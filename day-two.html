@@ -75,22 +75,6 @@
 <ul>
 <li>Large amounts of backend work is saving and retrieving data</li>
 <li>Easy with a little; hard with lots</li>
-<li>Easy with few users and simple apps; hard with many, complex, real-time apps</li>
-</ul>
-</section>
-
-<section  class=""><h2 id="databases">Databases</h2>
-<ul>
-<li>Can shoulder a lot of the challenge of persistence for you</li>
-<li>Larger sites sometimes use simpler databases that do less, but support larger write-loads</li>
-</ul>
-</section>
-
-<section  class=""><h2 id="what-are-databases-">What are databases?</h2>
-<ul>
-<li>Usually separate programs, running away from application server</li>
-<li>Usually save data to disk to persist it - in memory database are appearing to increase speed</li>
-<li>A range are avaiable - choosing one that fits your app is important</li>
 </ul>
 </section>
 
@@ -112,6 +96,24 @@
 </ul>
 </section>
 
+<section  class=""><h2 id="databases">Databases</h2>
+<ul>
+<li>Makes persistence easy</li>
+<li>Trade off: easier vs scaling</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="what-are-databases-">What are databases?</h2>
+<ul>
+<li>Separate programs</li>
+<li>Usually save to disk - some in memory</li>
+<li>Choose one that fits app </li>
+</ul>
+</section>
+
+<section data-state='title' class=" title"><h2 id="node">Node</h2>
+</section>
+
 <section data-state='title' class=" title"><h2 id="mongo">Mongo</h2>
 <ul>
 <li>Document database</li>
@@ -126,6 +128,27 @@
 <li>e.g YouTube video, a blog post</li>
 <li>Keep all related data attached to those documents</li>
 </ul>
+</section>
+
+<section  class=""><h2 id="intuition">Intuition</h2>
+<pre><code class="lang-javascript">var db = {};
+
+db.questions = [
+  {
+    _id: &quot;abffc2&quot;,
+    text: &quot;Why is JSON so insanely great?&quot;,
+    answers: [
+    ],
+  },
+];
+
+db.users = [
+  {
+    _id: &quot;22dfe&quot;,
+    name: &quot;amy&quot;,
+  },
+];
+</code></pre>
 </section>
 
 <section  class=""><h2 id="example-document">Example document</h2>
@@ -148,7 +171,7 @@
 
 <section  class=""><h2 id="denormalisation">Denormalisation</h2>
 <ul>
-<li>Keeping all related data together makes retrieving it fast</li>
+<li>Keeping all related data together</li>
 <li>But what is <em>normalisation</em>?</li>
 </ul>
 </section>
@@ -215,9 +238,40 @@
 <li>Find records to update</li>
 <li><code>update(query, update)</code></li>
 </ul>
-<pre><code class="lang-javascript">movies.update({ _id: someId }, {
-  title: &quot;Funny Cat&quot;,
-})
+<pre><code class="lang-javascript">movies.update({
+  _id: someId
+}, {
+  $set: {
+    title: &quot;Funny Cat&quot;,
+  },
+});
+</code></pre>
+</section>
+
+<section  class=""><h2 id="important">Important</h2>
+</section>
+
+<section  class=""><h2 id="updating-objects">Updating objects</h2>
+<pre><code class="lang-javascript">// we try to update all movies with a 0 rating
+movies.update({}, {
+  rating: 0,
+});
+
+// what happens?
+</code></pre>
+</section>
+
+<section data-state='bad' class=" bad"><h2 id="oh-no-">Oh no!</h2>
+<p>We&#39;ve replaced every object in the DB with <code>{rating: 0}</code></p>
+</section>
+
+<section  class=""><h2 id="use-set-">Use <code>$set</code></h2>
+<pre><code class="lang-javascript">// to add to arrays, use $push, etc
+movies.update({}, {
+  $set: {
+    rating: 0,
+  },
+});
 </code></pre>
 </section>
 
@@ -229,6 +283,25 @@
 <pre><code class="lang-javascript">movies.remove({ _id: someId });
 </code></pre>
 </section>
+
+<section data-state='title' class=" title"><h2 id="let-s-play-">Let&#39;s play!</h2>
+<ul>
+<li>Run <code>mongo</code> to get CLI</li>
+<li>db.someCollectionName.someCommand()</li>
+<li>db.find({}).pretty()</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="in-our-app">In our app</h2>
+<ul>
+<li>Using monk - a small usability wrapper</li>
+<li>Async - with promises</li>
+</ul>
+</section>
+
+<section  class=""><h2 id="exercise-">Exercise!</h2>
+<pre><code>exercises/mongo
+</code></pre></section>
 
 </div>
 </div>

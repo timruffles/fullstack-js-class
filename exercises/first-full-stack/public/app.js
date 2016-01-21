@@ -15,7 +15,7 @@ function main() {
 
 function clicker(setup) {
 
-  // TODO handle clicks on the button, with handleClick
+  setup.button.on("click", handleClick);
 
   getCount()
     .then(updateCount, handleError);
@@ -39,8 +39,5 @@ function getCount() {
 }
 
 function increment() {
-  // TODO implement POSTing to the endpoint you wrote to
-  // increment the counter
-  //
-  // look at getCount(), and you'll get the idea. Different method tho!
+  return $.post("/api/counter");
 }

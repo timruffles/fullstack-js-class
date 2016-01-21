@@ -11,6 +11,28 @@
 - e.g YouTube video, a blog post
 - Keep all related data attached to those documents
 
+## Intuition
+
+```javascript
+var db = {};
+
+db.questions = [
+  {
+    _id: "abffc2",
+    text: "Why is JSON so insanely great?",
+    answers: [
+    ],
+  },
+];
+
+db.users = [
+  {
+    _id: "22dfe",
+    name: "amy",
+  },
+];
+```
+
 ## Example document
 
 ```javascript
@@ -32,7 +54,7 @@
 
 ## Denormalisation
 
-- Keeping all related data together makes retrieving it fast
+- Keeping all related data together
 - But what is *normalisation*?
 
 ## Normalisation
@@ -92,9 +114,42 @@ movies.find({
 - `update(query, update)`
 
 ```javascript
-movies.update({ _id: someId }, {
-  title: "Funny Cat",
-})
+movies.update({
+  _id: someId
+}, {
+  $set: {
+    title: "Funny Cat",
+  },
+});
+```
+
+## Important
+
+## Updating objects
+
+```javascript
+// we try to update all movies with a 0 rating
+movies.update({}, {
+  rating: 0,
+});
+
+// what happens?
+```
+
+## Oh no!
+{bad:1}
+
+We've replaced every object in the DB with `{rating: 0}`
+
+## Use `$set`
+
+```javascript
+// to add to arrays, use $push, etc
+movies.update({}, {
+  $set: {
+    rating: 0,
+  },
+});
 ```
 
 ## Removing
@@ -105,3 +160,19 @@ movies.update({ _id: someId }, {
 ```javascript
 movies.remove({ _id: someId });
 ```
+
+## Let's play!
+{title: 1}
+
+- Run `mongo` to get CLI
+- db.someCollectionName.someCommand()
+- db.find({}).pretty()
+
+## In our app
+
+- Using monk - a small usability wrapper
+- Async - with promises
+
+## Exercise!
+
+    exercises/mongo

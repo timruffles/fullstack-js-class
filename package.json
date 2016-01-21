@@ -14,6 +14,7 @@
     "angular": "^1.4.8",
     "angular-resource": "^1.4.8",
     "angular-route": "^1.4.8",
+    "body-parser": "^1.14.2",
     "concat-with-sourcemaps": "^1.0.4",
     "concurrently": "^1.0.0",
     "easy-stdin": "^1.0.1",

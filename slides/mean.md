@@ -13,4 +13,15 @@
 - MEAN = Mean, Express, Angular, Node
 - SPA + backend logic + database
 
+## Databases
+
+- Makes persistence easy
+- Trade off: easier vs scaling
+
+## What are databases?
+
+- Separate programs
+- Usually save to disk - some in memory
+- Choose one that fits app 
+
 

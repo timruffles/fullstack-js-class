@@ -17,22 +17,15 @@ var app = express();
 var count = 0;
 
 
-app.get("/api/counter", function(request, response) {
-  // TODO read each part of the above line, consider what's happening
-  // TODO spot the part that would live in a browser's URL bar - what does this tell us about HTTP and its relations to file systems?
 
-  // TODO reply with an object like
-  //
-  //   {  count: count }
-  //
-  // Try a few methods that come to mind for sending a response,
-  //
-  // If you get stuck - find out which method to use on http://expressjs.com/
-});  
+app.get("/api/counter", function(req, res) {
+  res.send({  count: count });
+});
 
-// TODO listen for a 'POST' to a similar route,
-// TODO increment the count in the handler
-// TODO reply with an indentical format of message
+app.post("/api/counter", function(req, res) {
+  count += 1;
+  res.send({  count: count });
+});
 
 
 //
