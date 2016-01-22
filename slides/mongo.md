@@ -1,6 +1,8 @@
 ## Mongo
 {title:1}
 
+## What's Mongo?
+
 - Document database
 - Stores key-value objects
 - Queried with key-value objects
